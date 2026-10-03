@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UK Trip! 🇬🇧</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            overflow: hidden; /* Prevent scrolling, act like a PPT */
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+        }
+        
+        h1, h2, h3, h4, h5, h6, .font-fun {
+            font-family: 'Fredoka One', cursive;
+        }
+
+        /* Slide Transitions */
+        .slide {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        
+        .slide.active {
+            display: flex;
+            opacity: 1;
+            animation: slideIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        @keyframes slideIn {
+            0% { transform: translateY(30px) scale(0.95); opacity: 0; }
+            100% { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        /* Magic float animation for elements */
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* Custom scrollbar just in case for smaller screens */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ffb7b2;
+            border-radius: 10px;
+        }
+
+        /* Background Pattern for fun aesthetic */
+        .bg-pattern {
+            background-image: radial-gradient(#e5e7eb 2px, transparent 2px);
+            background-size: 30px 30px;
+        }
+    </style>
+</head>
+<body class="w-screen h-screen bg-pattern bg-blue-50 text-gray-800 relative select-none">
+
+    <!-- Navigation UI -->
+    <div class="fixed bottom-6 left-0 w-full flex justify-center items-center gap-6 z-50 px-4">
+        <button id="btn-prev" onclick="goPrev()" class="bg-white text-blue-500 border-4 border-blue-200 hover:bg-blue-50 font-fun text-xl py-3 px-6 rounded-full shadow-lg transition-transform transform hover:scale-110 opacity-50 cursor-not-allowed">
+            ⬅️ Back
+        </button>
+        <button id="btn-next" onclick="goNext()" class="bg-yellow-400 text-yellow-900 border-4 border-yellow-300 hover:bg-yellow-300 font-fun text-2xl py-3 px-8 rounded-full shadow-xl transition-transform transform hover:scale-110 animate-bounce">
+            Next ➡️
+        </button>
+    </div>
+
+    <div id="presentation-container" class="w-full h-full relative overflow-hidden pb-24">
+        
+        <!-- DIAPOSITIVA 0: Partes de UK -->
+        <div id="slide-0" class="slide active flex-col items-center justify-center w-full h-full p-8" data-max-steps="4">
+            <h1 class="text-5xl md:text-6xl flex items-center justify-center text-blue-700 mb-2 mt-4 animate-float font-fun">
+                Welcome to the UK! 
+                <img src="WhatsApp Image 2026-10-03 at 18.01.46 (4).jpeg" alt="UK Flag" class="inline-block h-12 md:h-16 ml-4 rounded-xl border-4 border-white shadow-md">
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-600 mb-8 font-bold">Let's discover its 4 magical parts!</p>
+            
+            <div class="relative w-full max-w-2xl h-[55vh] min-h-[400px]" style="background: url('reino-unido-turismo.jpg') no-repeat center center; background-size: contain;">
+                
+                <img src="WhatsApp Image 2026-10-03 at 18.01.46 (2).jpeg" 
+                     alt="Scotland Flag" 
+                     class="absolute w-20 h-auto border-4 border-white rounded-xl shadow-2xl step-target step-1 opacity-0 transform scale-50 transition-all duration-500 z-20"
+                     style="top: 15%; left: 55%;"
+                     data-add="opacity-100 scale-100" data-remove="opacity-0 scale-50">
+                     
+                <img src="WhatsApp Image 2026-10-03 at 18.01.46.jpeg" 
+                     alt="Northern Ireland Flag" 
+                     class="absolute w-20 h-auto border-4 border-white rounded-xl shadow-2xl step-target step-2 opacity-0 transform scale-50 transition-all duration-500 z-20"
+                     style="top: 45%; left: 35%;"
+                     data-add="opacity-100 scale-100" data-remove="opacity-0 scale-50">
+
+                <img src="WhatsApp Image 2026-10-03 at 18.01.46 (1).jpeg" 
+                     alt="Wales Flag" 
+                     class="absolute w-20 h-auto border-4 border-white rounded-xl shadow-2xl step-target step-3 opacity-0 transform scale-50 transition-all duration-500 z-20"
+                     style="top: 75%; left: 48%;"
+                     data-add="opacity-100 scale-100" data-remove="opacity-0 scale-50">
+
+                <img src="WhatsApp Image 2026-10-03 at 18.01.46 (3).jpeg" 
+                     alt="England Flag" 
+                     class="absolute w-20 h-auto border-4 border-white rounded-xl shadow-2xl step-target step-4 opacity-0 transform scale-50 transition-all duration-500 z-20"
+                     style="top: 70%; left: 72%;"
+                     data-add="opacity-100 scale-100" data-remove="opacity-0 scale-50">
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 1: Comida -->
+        <div id="slide-1" class="slide flex-col items-center justify-start w-full h-full p-8 overflow-y-auto" data-max-steps="0">
+            <h1 class="text-5xl md:text-6xl text-center text-orange-500 mb-6 mt-2 animate-float font-fun">Yummy! 😋</h1>
+            <p class="text-xl md:text-2xl text-gray-600 mb-6 font-bold text-center">Look what they eat there, your mouth will water!</p>
+            
+            <div class="grid grid-cols-3 gap-6 w-full max-w-5xl px-4 pb-12">
+                <div class="bg-orange-100 p-4 rounded-3xl shadow-lg flex flex-col items-center text-center transform hover:scale-105 transition">
+                    <img src="WhatsApp Image 2026-10-03 at 18.02.03 (1).jpeg" alt="Cup of Tea" class="w-full h-28 object-cover rounded-2xl mb-3 border-4 border-orange-200 shadow-sm">
+                    <h3 class="text-xl font-bold text-orange-900 leading-tight">Cup of Tea</h3>
+                </div>
+                <div class="bg-yellow-100 p-4 rounded-3xl shadow-lg flex flex-col items-center text-center transform hover:scale-105 transition">
+                    <img src="WhatsApp Image 2026-10-03 at 18.02.03.jpeg" alt="Fish and Chips" class="w-full h-28 object-cover rounded-2xl mb-3 border-4 border-yellow-200 shadow-sm">
+                    <h3 class="text-xl font-bold text-yellow-900 leading-tight">Fish and Chips</h3>
+                </div>
+                <div class="bg-red-100 p-4 rounded-3xl shadow-lg flex flex-col items-center text-center transform hover:scale-105 transition">
+                    <img src="WhatsApp Image 2026-10-03 at 18.02.02 (6).jpeg" alt="Sunday Roast" class="w-full h-28 object-cover rounded-2xl mb-3 border-4 border-red-200 shadow-sm">
+                    <h3 class="text-xl font-bold text-red-900 leading-tight">Sunday Roast</h3>
+                </div>
+                <div class="bg-amber-100 p-4 rounded-3xl shadow-lg flex flex-col items-center text-center transform hover:scale-105 transition">
+                    <img src="WhatsApp Image 2026-10-03 at 18.02.02 (5).jpeg" alt="Cooked Breakfast" class="w-full h-28 object-cover rounded-2xl mb-3 border-4 border-amber-200 shadow-sm">
+                    <h3 class="text-xl font-bold text-amber-900 leading-tight">Cooked Breakfast</h3>
+                </div>
+                <div class="bg-pink-100 p-4 rounded-3xl shadow-lg flex flex-col items-center text-center transform hover:scale-105 transition">
+                    <img src="WhatsApp Image 2026-10-03 at 18.02.02.jpeg" alt="Scones" class="w-full h-28 object-cover rounded-2xl mb-3 border-4 border-pink-200 shadow-sm">
+                    <h3 class="text-xl font-bold text-pink-900 leading-tight">Scones</h3>
+                </div>
+                <div class="bg-purple-100 p-4 rounded-3xl shadow-lg flex flex-col items-center text-center transform hover:scale-105 transition">
+                    <img src="WhatsApp Image 2026-10-03 at 18.02.02 (4).jpeg" alt="Cornish Pasty" class="w-full h-28 object-cover rounded-2xl mb-3 border-4 border-purple-200 shadow-sm">
+                    <h3 class="text-xl font-bold text-purple-900 leading-tight">Cornish Pasty</h3>
+                </div>
+                <div class="bg-amber-200 p-4 rounded-3xl shadow-lg flex flex-col items-center text-center transform hover:scale-105 transition">
+                    <img src="WhatsApp Image 2026-10-03 at 18.02.02 (3).jpeg" alt="Steak Pies" class="w-full h-28 object-cover rounded-2xl mb-3 border-4 border-amber-300 shadow-sm">
+                    <h3 class="text-xl font-bold text-amber-900 leading-tight">Steak Pies</h3>
+                </div>
+                <div class="bg-green-100 p-4 rounded-3xl shadow-lg flex flex-col items-center text-center transform hover:scale-105 transition">
+                    <img src="WhatsApp Image 2026-10-03 at 18.02.02 (2).jpeg" alt="Haggis" class="w-full h-28 object-cover rounded-2xl mb-3 border-4 border-green-200 shadow-sm">
+                    <h3 class="text-xl font-bold text-green-900 leading-tight">Haggis</h3>
+                </div>
+                <div class="bg-rose-100 p-4 rounded-3xl shadow-lg flex flex-col items-center text-center transform hover:scale-105 transition">
+                    <img src="WhatsApp Image 2026-10-03 at 18.02.02 (1).jpeg" alt="Beef Wellington" class="w-full h-28 object-cover rounded-2xl mb-3 border-4 border-rose-200 shadow-sm">
+                    <h3 class="text-xl font-bold text-rose-900 leading-tight">Beef Wellington</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 2: Modales -->
+        <div id="slide-2" class="slide flex-col items-center justify-center w-full h-full p-8 bg-purple-50" data-max-steps="7">
+            <h1 class="text-5xl md:text-6xl text-center text-purple-600 mb-10 mt-4 animate-float font-fun">Magic Words ✨</h1>
+            
+            <div class="flex flex-wrap justify-center gap-8 max-w-5xl">
+                <!-- Paso 1 -->
+                <div class="step-target step-1 opacity-0 transform scale-0 transition-all duration-700 bg-pink-400 text-white px-8 py-6 rounded-full shadow-xl text-3xl font-fun rotate-[-5deg]"
+                     data-add="opacity-100 scale-100" data-remove="opacity-0 scale-0">
+                    💖 Please
+                </div>
+                <!-- Paso 2 -->
+                <div class="step-target step-2 opacity-0 transform scale-0 transition-all duration-700 bg-blue-400 text-white px-8 py-6 rounded-full shadow-xl text-3xl font-fun rotate-[5deg]"
+                     data-add="opacity-100 scale-100" data-remove="opacity-0 scale-0">
+                    🌟 Thank you
+                </div>
+                <!-- Paso 3 -->
+                <div class="step-target step-3 opacity-0 transform scale-0 transition-all duration-700 bg-green-400 text-white px-8 py-6 rounded-full shadow-xl text-3xl font-fun rotate-[-3deg]"
+                     data-add="opacity-100 scale-100" data-remove="opacity-0 scale-0">
+                    🥺 Sorry
+                </div>
+                <!-- Paso 4 -->
+                <div class="step-target step-4 opacity-0 transform scale-0 transition-all duration-700 bg-yellow-400 text-yellow-900 px-8 py-6 rounded-full shadow-xl text-3xl font-fun rotate-[6deg]"
+                     data-add="opacity-100 scale-100" data-remove="opacity-0 scale-0">
+                    🙋 Excuse me
+                </div>
+                <!-- Paso 5 -->
+                <div class="step-target step-5 opacity-0 transform scale-0 transition-all duration-700 bg-orange-400 text-white px-8 py-6 rounded-full shadow-xl text-3xl font-fun rotate-[-6deg]"
+                     data-add="opacity-100 scale-100" data-remove="opacity-0 scale-0">
+                    👂 Pardon me
+                </div>
+                <!-- Paso 6 -->
+                <div class="step-target step-6 opacity-0 transform scale-0 transition-all duration-700 bg-purple-400 text-white px-8 py-6 rounded-full shadow-xl text-3xl font-fun rotate-[4deg]"
+                     data-add="opacity-100 scale-100" data-remove="opacity-0 scale-0">
+                    ☕ Would you...?
+                </div>
+                <!-- Paso 7 -->
+                <div class="step-target step-7 opacity-0 transform scale-0 transition-all duration-700 bg-rose-400 text-white px-8 py-6 rounded-full shadow-xl text-3xl font-fun rotate-[-2deg]"
+                     data-add="opacity-100 scale-100" data-remove="opacity-0 scale-0">
+                    ☝️ May I...?
+                </div>
+            </div>
+            
+            <p class="text-2xl text-purple-800 font-bold mt-16 text-center max-w-2xl bg-white/70 p-4 rounded-3xl shadow-sm border-2 border-purple-200">
+                In the UK they are very polite, they always use these words for everything!
+            </p>
+        </div>
+
+        <!-- DIAPOSITIVA 3: Reyes y Reinas -->
+        <div id="slide-3" class="slide flex-col items-center justify-start w-full h-full p-6 overflow-y-auto" data-max-steps="0">
+            <h1 class="text-5xl text-center text-yellow-600 mb-6 mt-2 animate-float font-fun">Kings and Queens 👑</h1>
+            
+            <div class="grid grid-cols-4 gap-6 w-full max-w-6xl px-4 pb-12">
+                <div class="bg-yellow-50 p-4 rounded-xl border-4 border-yellow-400 shadow-lg flex flex-col items-center hover:scale-105 transition-transform duration-300">
+                    <img src="Charles_Hamilton_Smith_-_Boudica.png" alt="Boudica" class="w-full h-40 object-cover rounded-lg mb-3 border-2 border-yellow-200 shadow-md">
+                    <h3 class="text-xl font-bold text-yellow-900 text-center font-fun">Boudica</h3>
+                </div>
+                <div class="bg-yellow-50 p-4 rounded-xl border-4 border-yellow-400 shadow-lg flex flex-col items-center hover:scale-105 transition-transform duration-300">
+                    <img src="WhatsApp Image 2026-10-03 at 18.07.12.jpeg" alt="Alfred the Great" class="w-full h-40 object-cover rounded-lg mb-3 border-2 border-yellow-200 shadow-md">
+                    <h3 class="text-xl font-bold text-yellow-900 text-center font-fun">Alfred the Great</h3>
+                </div>
+                <div class="bg-yellow-50 p-4 rounded-xl border-4 border-yellow-400 shadow-lg flex flex-col items-center hover:scale-105 transition-transform duration-300">
+                    <img src="WhatsApp Image 2026-10-03 at 18.08.38.jpeg" alt="William I" class="w-full h-40 object-cover rounded-lg mb-3 border-2 border-yellow-200 shadow-md">
+                    <h3 class="text-xl font-bold text-yellow-900 text-center font-fun">William I</h3>
+                </div>
+                <div class="bg-yellow-50 p-4 rounded-xl border-4 border-yellow-400 shadow-lg flex flex-col items-center hover:scale-105 transition-transform duration-300">
+                    <img src="WhatsApp Image 2026-10-03 at 18.09.22.jpeg" alt="Henry VIII" class="w-full h-40 object-cover rounded-lg mb-3 border-2 border-yellow-200 shadow-md">
+                    <h3 class="text-xl font-bold text-yellow-900 text-center font-fun">Henry VIII</h3>
+                </div>
+                <div class="bg-yellow-50 p-4 rounded-xl border-4 border-yellow-400 shadow-lg flex flex-col items-center hover:scale-105 transition-transform duration-300">
+                    <img src="WhatsApp Image 2026-10-03 at 18.10.40.jpeg" alt="Elizabeth I" class="w-full h-40 object-cover rounded-lg mb-3 border-2 border-yellow-200 shadow-md">
+                    <h3 class="text-xl font-bold text-yellow-900 text-center font-fun">Elizabeth I</h3>
+                </div>
+                <div class="bg-yellow-50 p-4 rounded-xl border-4 border-yellow-400 shadow-lg flex flex-col items-center hover:scale-105 transition-transform duration-300">
+                    <img src="WhatsApp Image 2026-10-03 at 18.11.37.jpeg" alt="Queen Victoria" class="w-full h-40 object-cover rounded-lg mb-3 border-2 border-yellow-200 shadow-md">
+                    <h3 class="text-xl font-bold text-yellow-900 text-center font-fun">Queen Victoria</h3>
+                </div>
+                <div class="bg-yellow-50 p-4 rounded-xl border-4 border-yellow-400 shadow-lg flex flex-col items-center hover:scale-105 transition-transform duration-300">
+                    <img src="WhatsApp Image 2026-10-03 at 18.12.06.jpeg" alt="Elizabeth II" class="w-full h-40 object-cover rounded-lg mb-3 border-2 border-yellow-200 shadow-md">
+                    <h3 class="text-xl font-bold text-yellow-900 text-center font-fun">Elizabeth II</h3>
+                </div>
+                <div class="bg-yellow-50 p-4 rounded-xl border-4 border-yellow-400 shadow-lg flex flex-col items-center hover:scale-105 transition-transform duration-300">
+                    <img src="WhatsApp Image 2026-10-03 at 18.12.52.jpeg" alt="King Charles III" class="w-full h-40 object-cover rounded-lg mb-3 border-2 border-yellow-200 shadow-md">
+                    <h3 class="text-xl font-bold text-yellow-900 text-center font-fun">King Charles III</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 4: Tooth Fairy -->
+        <div id="slide-4" class="slide flex-col items-center justify-center w-full h-full p-8 bg-pink-50" data-max-steps="0">
+            <h1 class="text-5xl md:text-6xl text-center text-pink-600 mb-6 mt-4 animate-float font-fun">The Tooth Fairy 🧚‍♀️</h1>
+            <p class="text-2xl text-pink-800 font-bold mb-10 text-center">Ratoncito Pérez doesn't come here!</p>
+            
+            <div class="bg-white p-6 rounded-[3rem] shadow-2xl border-8 border-pink-300 transform rotate-[-2deg] max-w-4xl w-full flex justify-center">
+                <img src="2.jpeg" 
+                     alt="Tooth Fairy" 
+                     class="w-full max-w-md h-auto object-cover rounded-[2rem] border-4 border-dashed border-pink-400">
+            </div>
+            
+            <div class="absolute text-5xl opacity-50 animate-float" style="top:20%; left:15%;">✨</div>
+            <div class="absolute text-5xl opacity-50 animate-float" style="top:40%; right:15%; animation-delay: 1s;">🦷</div>
+            <div class="absolute text-5xl opacity-50 animate-float" style="top:70%; left:20%; animation-delay: 2s;">🧚</div>
+        </div>
+
+        <!-- DIAPOSITIVA 5: Londres y Paddington -->
+        <div id="slide-5" class="slide flex-col items-center justify-start w-full h-full p-6 overflow-y-auto bg-blue-100" data-max-steps="0">
+            <h1 class="text-5xl md:text-6xl text-center text-red-600 mb-4 mt-2 animate-float font-fun">We are going to London! 🐻🎡</h1>
+            <p class="text-xl md:text-2xl text-blue-900 font-bold mb-6 text-center">Paddington shows us his favorite places!</p>
+            
+            <div class="flex flex-wrap justify-center gap-6 max-w-6xl px-4 pb-12">
+                
+                <!-- Big Ben -->
+                <div class="bg-white p-3 rounded-2xl shadow-xl border-4 border-blue-300 transform rotate-[-2deg] hover:rotate-0 hover:scale-110 hover:z-10 transition duration-300 w-64 md:w-72">
+                    <img src="Gemini_Generated_Image_ybue6sybue6sybue.jpg" alt="Big Ben" class="w-full h-48 object-cover rounded-xl border-2 border-dashed border-blue-200 mb-2">
+                    <h3 class="text-xl font-bold text-blue-900 text-center font-fun">Big Ben</h3>
+                </div>
+                
+                <!-- Tower Bridge -->
+                <div class="bg-white p-3 rounded-2xl shadow-xl border-4 border-red-300 transform rotate-[3deg] hover:rotate-0 hover:scale-110 hover:z-10 transition duration-300 w-64 md:w-72">
+                    <img src="Gemini_Generated_Image_4176ji4176ji4176.jpg" alt="Tower Bridge" class="w-full h-48 object-cover rounded-xl border-2 border-dashed border-red-200 mb-2">
+                    <h3 class="text-xl font-bold text-red-900 text-center font-fun">Tower Bridge</h3>
+                </div>
+                
+                <!-- Buckingham & London Eye -->
+                <div class="bg-white p-3 rounded-2xl shadow-xl border-4 border-yellow-300 transform rotate-[-1deg] hover:rotate-0 hover:scale-110 hover:z-10 transition duration-300 w-64 md:w-72">
+                    <img src="Gemini_Generated_Image_d54i4bd54i4bd54i.jpg" alt="London Eye y Palacio" class="w-full h-48 object-cover rounded-xl border-2 border-dashed border-yellow-200 mb-2">
+                    <h3 class="text-xl font-bold text-yellow-900 text-center font-fun">London Eye & Palace</h3>
+                </div>
+                
+                <!-- Tower of London -->
+                <div class="bg-white p-3 rounded-2xl shadow-xl border-4 border-green-300 transform rotate-[2deg] hover:rotate-0 hover:scale-110 hover:z-10 transition duration-300 w-64 md:w-72">
+                    <img src="Gemini_Generated_Image_klqq5xklqq5xklqq.jpg" alt="Tower of London" class="w-full h-48 object-cover rounded-xl border-2 border-dashed border-green-200 mb-2">
+                    <h3 class="text-xl font-bold text-green-900 text-center font-fun">Tower of London</h3>
+                </div>
+                
+                <!-- British Museum -->
+                <div class="bg-white p-3 rounded-2xl shadow-xl border-4 border-purple-300 transform rotate-[-3deg] hover:rotate-0 hover:scale-110 hover:z-10 transition duration-300 w-64 md:w-72">
+                    <img src="Gemini_Generated_Image_ck23acck23acck23.jpg" alt="British Museum" class="w-full h-48 object-cover rounded-xl border-2 border-dashed border-purple-200 mb-2">
+                    <h3 class="text-xl font-bold text-purple-900 text-center font-fun">British Museum</h3>
+                </div>
+
+                <!-- Westminster Abbey -->
+                <div class="bg-white p-3 rounded-2xl shadow-xl border-4 border-orange-300 transform rotate-[4deg] hover:rotate-0 hover:scale-110 hover:z-10 transition duration-300 w-64 md:w-72">
+                    <img src="Gemini_Generated_Image_2zjg962zjg962zjg.jpg" alt="Abadía de Westminster" class="w-full h-48 object-cover rounded-xl border-2 border-dashed border-orange-200 mb-2">
+                    <h3 class="text-xl font-bold text-orange-900 text-center font-fun">Westminster Abbey</h3>
+                </div>
+                
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 6: Despedida con The Beatles -->
+        <div id="slide-6" class="slide flex-col items-center justify-center w-full h-full p-8 bg-green-50" data-max-steps="0">
+            <h1 class="text-6xl md:text-7xl text-center text-green-600 mb-8 mt-2 animate-float font-fun">Thank you! 👋</h1>
+            
+            <div class="bg-white p-4 rounded-[2rem] shadow-2xl transform rotate-[2deg] hover:rotate-0 transition duration-300">
+                <img src="15.jpg" alt="The Beatles Abbey Road" class="w-full max-w-3xl h-auto rounded-2xl border-4 border-dashed border-green-300">
+            </div>
+            
+            <p class="text-2xl md:text-3xl text-green-800 font-bold mt-10 text-center bg-white/70 p-4 rounded-3xl shadow-sm border-2 border-green-200">
+                We hope you enjoyed the trip to the UK! 🇬🇧
+            </p>
+        </div>
+
+    </div>
+
+    <script>
+        // Variables de estado
+        let currentSlide = 0;
+        let currentStep = 0;
+        const totalSlides = 7;
+
+        // Elementos UI
+        const btnPrev = document.getElementById('btn-prev');
+        const btnNext = document.getElementById('btn-next');
+
+        function updateUI() {
+            // Actualizar botones
+            if (currentSlide === 0 && currentStep === 0) {
+                btnPrev.classList.add('opacity-50', 'cursor-not-allowed');
+                btnPrev.classList.remove('hover:bg-blue-50', 'hover:scale-110');
+            } else {
+                btnPrev.classList.remove('opacity-50', 'cursor-not-allowed');
+                btnPrev.classList.add('hover:bg-blue-50', 'hover:scale-110');
+            }
+
+            const slideEl = document.getElementById(`slide-${currentSlide}`);
+            const maxSteps = parseInt(slideEl.dataset.maxSteps || 0);
+
+            if (currentSlide === totalSlides - 1 && currentStep === maxSteps) {
+                btnNext.innerHTML = "Finish! 🎊";
+                btnNext.classList.remove('animate-bounce');
+            } else {
+                btnNext.innerHTML = "Next ➡️";
+                btnNext.classList.add('animate-bounce');
+            }
+        }
+
+        function showSlide(idx) {
+            document.querySelectorAll('.slide').forEach((slide, i) => {
+                if (i === idx) {
+                    slide.classList.remove('hidden');
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.add('hidden');
+                    slide.classList.remove('active');
+                }
+            });
+            updateUI();
+        }
+
+        function activateStep(slideIdx, stepIdx, animate = true) {
+            const slide = document.getElementById(`slide-${slideIdx}`);
+            if(!slide) return;
+            const targets = slide.querySelectorAll(`.step-${stepIdx}`);
+            
+            targets.forEach(el => {
+                if (el.dataset.add) {
+                    el.classList.add(...el.dataset.add.split(' '));
+                }
+                if (el.dataset.remove) {
+                    el.classList.remove(...el.dataset.remove.split(' '));
+                }
+                
+                // Si no queremos animación al restaurar estados previos (cuando vamos hacia atrás de diapositiva)
+                if (!animate) {
+                    el.style.transition = 'none';
+                    setTimeout(() => el.style.transition = '', 50);
+                }
+            });
+        }
+
+        function deactivateStep(slideIdx, stepIdx) {
+            const slide = document.getElementById(`slide-${slideIdx}`);
+            if(!slide) return;
+            const targets = slide.querySelectorAll(`.step-${stepIdx}`);
+            
+            targets.forEach(el => {
+                if (el.dataset.add) {
+                    el.classList.remove(...el.dataset.add.split(' '));
+                }
+                if (el.dataset.remove) {
+                    el.classList.add(...el.dataset.remove.split(' '));
+                }
+            });
+        }
+
+        function goNext() {
+            const slide = document.getElementById(`slide-${currentSlide}`);
+            const maxSteps = parseInt(slide.dataset.maxSteps || 0);
+
+            if (currentStep < maxSteps) {
+                currentStep++;
+                activateStep(currentSlide, currentStep);
+                updateUI();
+            } else {
+                if (currentSlide < totalSlides - 1) {
+                    currentSlide++;
+                    currentStep = 0;
+                    showSlide(currentSlide);
+                }
+            }
+        }
+
+        function goPrev() {
+            if (currentStep > 0) {
+                deactivateStep(currentSlide, currentStep);
+                currentStep--;
+                updateUI();
+            } else {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    const prevSlide = document.getElementById(`slide-${currentSlide}`);
+                    currentStep = parseInt(prevSlide.dataset.maxSteps || 0);
+                    
+                    // Restaurar los pasos de la diapositiva anterior al instante
+                    for(let i = 1; i <= currentStep; i++) {
+                        activateStep(currentSlide, i, false);
+                    }
+                    
+                    showSlide(currentSlide);
+                }
+            }
+        }
+
+        // Navegación por teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                goNext();
+            } else if (e.key === 'ArrowLeft') {
+                goPrev();
+            }
+        });
+
+        // Inicializar
+        updateUI();
+
+    </script>
+</body>
+</html>
