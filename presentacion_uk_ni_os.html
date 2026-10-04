@@ -61,18 +61,46 @@
             background-image: radial-gradient(#e5e7eb 2px, transparent 2px);
             background-size: 30px 30px;
         }
+
+        /* Pop-up modal styles for food zoom */
+        #food-popup-overlay {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        #food-popup-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        #food-popup-content {
+            transform: scale(0.3) translateY(40px);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+        }
+        #food-popup-overlay.active #food-popup-content {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
     </style>
 </head>
 <body class="w-screen h-screen bg-pattern bg-blue-50 text-gray-800 relative select-none">
 
     <!-- Navigation UI -->
-    <div class="fixed bottom-6 left-0 w-full flex justify-center items-center gap-6 z-50 px-4">
+    <div class="fixed bottom-6 left-0 w-full flex justify-center items-center gap-6 z-50 px-4 pointer-events-auto">
         <button id="btn-prev" onclick="goPrev()" class="bg-white text-blue-500 border-4 border-blue-200 hover:bg-blue-50 font-fun text-xl py-3 px-6 rounded-full shadow-lg transition-transform transform hover:scale-110 opacity-50 cursor-not-allowed">
             ⬅️ Back
         </button>
         <button id="btn-next" onclick="goNext()" class="bg-yellow-400 text-yellow-900 border-4 border-yellow-300 hover:bg-yellow-300 font-fun text-2xl py-3 px-8 rounded-full shadow-xl transition-transform transform hover:scale-110 animate-bounce">
             Next ➡️
         </button>
+    </div>
+
+    <!-- POP-UP OVERLAY PARA EL ZOOM DE COMIDA -->
+    <div id="food-popup-overlay" class="fixed inset-0 bg-black/40 z-30 flex items-center justify-center p-4 pb-28 pointer-events-none">
+        <div id="food-popup-content" class="bg-white p-6 rounded-[2.5rem] shadow-2xl border-8 border-yellow-400 max-w-lg w-full text-center flex flex-col items-center pointer-events-auto">
+            <img id="popup-img" src="" alt="Food" class="w-full h-72 object-cover rounded-3xl mb-4 border-4 border-gray-100 shadow-inner">
+            <h3 id="popup-title" class="text-3xl font-fun text-orange-600"></h3>
+        </div>
     </div>
 
     <div id="presentation-container" class="w-full h-full relative overflow-hidden pb-24">
@@ -114,44 +142,44 @@
         </div>
 
         <!-- DIAPOSITIVA 1: Comida -->
-        <div id="slide-1" class="slide flex-col items-center justify-start w-full h-full p-8 overflow-y-auto" data-max-steps="0">
+        <div id="slide-1" class="slide flex-col items-center justify-start w-full h-full p-8 overflow-y-auto" data-max-steps="3">
             <h1 class="text-5xl md:text-6xl text-center text-orange-500 mb-6 mt-2 animate-float font-fun">Yummy! 😋</h1>
             <p class="text-xl md:text-2xl text-gray-600 mb-6 font-bold text-center">Look what they eat there, your mouth will water!</p>
             
             <div class="grid grid-cols-3 gap-6 w-full max-w-5xl px-4 pb-12">
-                <div class="bg-orange-100 p-4 rounded-3xl shadow-lg flex flex-col items-center text-center transform hover:scale-105 transition">
+                <div class="bg-orange-100 p-4 rounded-3xl shadow-lg flex flex-col items-center text-center">
                     <img src="WhatsApp Image 2026-10-03 at 18.02.03 (1).jpeg" alt="Cup of Tea" class="w-full h-28 object-cover rounded-2xl mb-3 border-4 border-orange-200 shadow-sm">
                     <h3 class="text-xl font-bold text-orange-900 leading-tight">Cup of Tea</h3>
                 </div>
-                <div class="bg-yellow-100 p-4 rounded-3xl shadow-lg flex flex-col items-center text-center transform hover:scale-105 transition">
+                <div class="bg-yellow-100 p-4 rounded-3xl shadow-lg flex flex-col items-center text-center">
                     <img src="WhatsApp Image 2026-10-03 at 18.02.03.jpeg" alt="Fish and Chips" class="w-full h-28 object-cover rounded-2xl mb-3 border-4 border-yellow-200 shadow-sm">
                     <h3 class="text-xl font-bold text-yellow-900 leading-tight">Fish and Chips</h3>
                 </div>
-                <div class="bg-red-100 p-4 rounded-3xl shadow-lg flex flex-col items-center text-center transform hover:scale-105 transition">
+                <div class="bg-red-100 p-4 rounded-3xl shadow-lg flex flex-col items-center text-center">
                     <img src="WhatsApp Image 2026-10-03 at 18.02.02 (6).jpeg" alt="Sunday Roast" class="w-full h-28 object-cover rounded-2xl mb-3 border-4 border-red-200 shadow-sm">
                     <h3 class="text-xl font-bold text-red-900 leading-tight">Sunday Roast</h3>
                 </div>
-                <div class="bg-amber-100 p-4 rounded-3xl shadow-lg flex flex-col items-center text-center transform hover:scale-105 transition">
+                <div class="bg-amber-100 p-4 rounded-3xl shadow-lg flex flex-col items-center text-center">
                     <img src="WhatsApp Image 2026-10-03 at 18.02.02 (5).jpeg" alt="Cooked Breakfast" class="w-full h-28 object-cover rounded-2xl mb-3 border-4 border-amber-200 shadow-sm">
                     <h3 class="text-xl font-bold text-amber-900 leading-tight">Cooked Breakfast</h3>
                 </div>
-                <div class="bg-pink-100 p-4 rounded-3xl shadow-lg flex flex-col items-center text-center transform hover:scale-105 transition">
+                <div class="bg-pink-100 p-4 rounded-3xl shadow-lg flex flex-col items-center text-center">
                     <img src="WhatsApp Image 2026-10-03 at 18.02.02.jpeg" alt="Scones" class="w-full h-28 object-cover rounded-2xl mb-3 border-4 border-pink-200 shadow-sm">
                     <h3 class="text-xl font-bold text-pink-900 leading-tight">Scones</h3>
                 </div>
-                <div class="bg-purple-100 p-4 rounded-3xl shadow-lg flex flex-col items-center text-center transform hover:scale-105 transition">
+                <div class="bg-purple-100 p-4 rounded-3xl shadow-lg flex flex-col items-center text-center">
                     <img src="WhatsApp Image 2026-10-03 at 18.02.02 (4).jpeg" alt="Cornish Pasty" class="w-full h-28 object-cover rounded-2xl mb-3 border-4 border-purple-200 shadow-sm">
                     <h3 class="text-xl font-bold text-purple-900 leading-tight">Cornish Pasty</h3>
                 </div>
-                <div class="bg-amber-200 p-4 rounded-3xl shadow-lg flex flex-col items-center text-center transform hover:scale-105 transition">
+                <div class="bg-amber-200 p-4 rounded-3xl shadow-lg flex flex-col items-center text-center">
                     <img src="WhatsApp Image 2026-10-03 at 18.02.02 (3).jpeg" alt="Steak Pies" class="w-full h-28 object-cover rounded-2xl mb-3 border-4 border-amber-300 shadow-sm">
                     <h3 class="text-xl font-bold text-amber-900 leading-tight">Steak Pies</h3>
                 </div>
-                <div class="bg-green-100 p-4 rounded-3xl shadow-lg flex flex-col items-center text-center transform hover:scale-105 transition">
+                <div class="bg-green-100 p-4 rounded-3xl shadow-lg flex flex-col items-center text-center">
                     <img src="WhatsApp Image 2026-10-03 at 18.02.02 (2).jpeg" alt="Haggis" class="w-full h-28 object-cover rounded-2xl mb-3 border-4 border-green-200 shadow-sm">
                     <h3 class="text-xl font-bold text-green-900 leading-tight">Haggis</h3>
                 </div>
-                <div class="bg-rose-100 p-4 rounded-3xl shadow-lg flex flex-col items-center text-center transform hover:scale-105 transition">
+                <div class="bg-rose-100 p-4 rounded-3xl shadow-lg flex flex-col items-center text-center">
                     <img src="WhatsApp Image 2026-10-03 at 18.02.02 (1).jpeg" alt="Beef Wellington" class="w-full h-28 object-cover rounded-2xl mb-3 border-4 border-rose-200 shadow-sm">
                     <h3 class="text-xl font-bold text-rose-900 leading-tight">Beef Wellington</h3>
                 </div>
@@ -163,37 +191,30 @@
             <h1 class="text-5xl md:text-6xl text-center text-purple-600 mb-10 mt-4 animate-float font-fun">Magic Words ✨</h1>
             
             <div class="flex flex-wrap justify-center gap-8 max-w-5xl">
-                <!-- Paso 1 -->
                 <div class="step-target step-1 opacity-0 transform scale-0 transition-all duration-700 bg-pink-400 text-white px-8 py-6 rounded-full shadow-xl text-3xl font-fun rotate-[-5deg]"
                      data-add="opacity-100 scale-100" data-remove="opacity-0 scale-0">
                     💖 Please
                 </div>
-                <!-- Paso 2 -->
                 <div class="step-target step-2 opacity-0 transform scale-0 transition-all duration-700 bg-blue-400 text-white px-8 py-6 rounded-full shadow-xl text-3xl font-fun rotate-[5deg]"
                      data-add="opacity-100 scale-100" data-remove="opacity-0 scale-0">
                     🌟 Thank you
                 </div>
-                <!-- Paso 3 -->
                 <div class="step-target step-3 opacity-0 transform scale-0 transition-all duration-700 bg-green-400 text-white px-8 py-6 rounded-full shadow-xl text-3xl font-fun rotate-[-3deg]"
                      data-add="opacity-100 scale-100" data-remove="opacity-0 scale-0">
                     🥺 Sorry
                 </div>
-                <!-- Paso 4 -->
                 <div class="step-target step-4 opacity-0 transform scale-0 transition-all duration-700 bg-yellow-400 text-yellow-900 px-8 py-6 rounded-full shadow-xl text-3xl font-fun rotate-[6deg]"
                      data-add="opacity-100 scale-100" data-remove="opacity-0 scale-0">
                     🙋 Excuse me
                 </div>
-                <!-- Paso 5 -->
                 <div class="step-target step-5 opacity-0 transform scale-0 transition-all duration-700 bg-orange-400 text-white px-8 py-6 rounded-full shadow-xl text-3xl font-fun rotate-[-6deg]"
                      data-add="opacity-100 scale-100" data-remove="opacity-0 scale-0">
                     👂 Pardon me
                 </div>
-                <!-- Paso 6 -->
                 <div class="step-target step-6 opacity-0 transform scale-0 transition-all duration-700 bg-purple-400 text-white px-8 py-6 rounded-full shadow-xl text-3xl font-fun rotate-[4deg]"
                      data-add="opacity-100 scale-100" data-remove="opacity-0 scale-0">
                     ☕ Would you...?
                 </div>
-                <!-- Paso 7 -->
                 <div class="step-target step-7 opacity-0 transform scale-0 transition-all duration-700 bg-rose-400 text-white px-8 py-6 rounded-full shadow-xl text-3xl font-fun rotate-[-2deg]"
                      data-add="opacity-100 scale-100" data-remove="opacity-0 scale-0">
                     ☝️ May I...?
@@ -205,43 +226,60 @@
             </p>
         </div>
 
-        <!-- DIAPOSITIVA 3: Reyes y Reinas -->
-        <div id="slide-3" class="slide flex-col items-center justify-start w-full h-full p-6 overflow-y-auto" data-max-steps="0">
-            <h1 class="text-5xl text-center text-yellow-600 mb-6 mt-2 animate-float font-fun">Kings and Queens 👑</h1>
+        <!-- DIAPOSITIVA 3: Reyes y Reinas (FORMATO MURAL GRANDE Y VISIBLE) -->
+        <div id="slide-3" class="slide flex-col items-center justify-start w-full h-full p-6 overflow-y-auto bg-amber-50/40" data-max-steps="0">
+            <h1 class="text-5xl md:text-6xl text-center text-yellow-600 mb-6 mt-2 animate-float font-fun">Kings and Queens 👑</h1>
             
-            <div class="grid grid-cols-4 gap-6 w-full max-w-6xl px-4 pb-12">
-                <div class="bg-yellow-50 p-4 rounded-xl border-4 border-yellow-400 shadow-lg flex flex-col items-center hover:scale-105 transition-transform duration-300">
-                    <img src="Charles_Hamilton_Smith_-_Boudica.png" alt="Boudica" class="w-full h-40 object-cover rounded-lg mb-3 border-2 border-yellow-200 shadow-md">
-                    <h3 class="text-xl font-bold text-yellow-900 text-center font-fun">Boudica</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 w-full max-w-6xl px-4 pb-16">
+                
+                <!-- 1. Boudica -->
+                <div class="bg-white p-4 rounded-2xl border-4 border-yellow-400 shadow-xl flex flex-col items-center hover:scale-105 transition-transform duration-300">
+                    <img src="Charles_Hamilton_Smith_-_Boudica.jpg" alt="Boudica" class="w-full h-52 md:h-60 object-cover rounded-xl mb-3 border-2 border-yellow-200 shadow-md">
+                    <h3 class="text-2xl font-bold text-yellow-900 text-center font-fun">Boudica</h3>
                 </div>
-                <div class="bg-yellow-50 p-4 rounded-xl border-4 border-yellow-400 shadow-lg flex flex-col items-center hover:scale-105 transition-transform duration-300">
-                    <img src="WhatsApp Image 2026-10-03 at 18.07.12.jpeg" alt="Alfred the Great" class="w-full h-40 object-cover rounded-lg mb-3 border-2 border-yellow-200 shadow-md">
-                    <h3 class="text-xl font-bold text-yellow-900 text-center font-fun">Alfred the Great</h3>
+
+                <!-- 2. Alfred the Great -->
+                <div class="bg-white p-4 rounded-2xl border-4 border-yellow-400 shadow-xl flex flex-col items-center hover:scale-105 transition-transform duration-300">
+                    <img src="WhatsApp Image 2026-10-03 at 18.07.12.jpeg" alt="Alfred the Great" class="w-full h-52 md:h-60 object-cover rounded-xl mb-3 border-2 border-yellow-200 shadow-md">
+                    <h3 class="text-2xl font-bold text-yellow-900 text-center font-fun">Alfred the Great</h3>
                 </div>
-                <div class="bg-yellow-50 p-4 rounded-xl border-4 border-yellow-400 shadow-lg flex flex-col items-center hover:scale-105 transition-transform duration-300">
-                    <img src="WhatsApp Image 2026-10-03 at 18.08.38.jpeg" alt="William I" class="w-full h-40 object-cover rounded-lg mb-3 border-2 border-yellow-200 shadow-md">
-                    <h3 class="text-xl font-bold text-yellow-900 text-center font-fun">William I</h3>
+
+                <!-- 3. William I -->
+                <div class="bg-white p-4 rounded-2xl border-4 border-yellow-400 shadow-xl flex flex-col items-center hover:scale-105 transition-transform duration-300">
+                    <img src="WhatsApp Image 2026-10-03 at 18.08.38.jpeg" alt="William I" class="w-full h-52 md:h-60 object-cover rounded-xl mb-3 border-2 border-yellow-200 shadow-md">
+                    <h3 class="text-2xl font-bold text-yellow-900 text-center font-fun">William I</h3>
                 </div>
-                <div class="bg-yellow-50 p-4 rounded-xl border-4 border-yellow-400 shadow-lg flex flex-col items-center hover:scale-105 transition-transform duration-300">
-                    <img src="WhatsApp Image 2026-10-03 at 18.09.22.jpeg" alt="Henry VIII" class="w-full h-40 object-cover rounded-lg mb-3 border-2 border-yellow-200 shadow-md">
-                    <h3 class="text-xl font-bold text-yellow-900 text-center font-fun">Henry VIII</h3>
+
+                <!-- 4. Henry VIII -->
+                <div class="bg-white p-4 rounded-2xl border-4 border-yellow-400 shadow-xl flex flex-col items-center hover:scale-105 transition-transform duration-300">
+                    <img src="WhatsApp Image 2026-10-03 at 18.09.22.jpeg" alt="Henry VIII" class="w-full h-52 md:h-60 object-cover rounded-xl mb-3 border-2 border-yellow-200 shadow-md">
+                    <h3 class="text-2xl font-bold text-yellow-900 text-center font-fun">Henry VIII</h3>
                 </div>
-                <div class="bg-yellow-50 p-4 rounded-xl border-4 border-yellow-400 shadow-lg flex flex-col items-center hover:scale-105 transition-transform duration-300">
-                    <img src="WhatsApp Image 2026-10-03 at 18.10.40.jpeg" alt="Elizabeth I" class="w-full h-40 object-cover rounded-lg mb-3 border-2 border-yellow-200 shadow-md">
-                    <h3 class="text-xl font-bold text-yellow-900 text-center font-fun">Elizabeth I</h3>
+
+                <!-- 5. Elizabeth I -->
+                <div class="bg-white p-4 rounded-2xl border-4 border-yellow-400 shadow-xl flex flex-col items-center hover:scale-105 transition-transform duration-300">
+                    <img src="WhatsApp Image 2026-10-03 at 18.10.40.jpeg" alt="Elizabeth I" class="w-full h-52 md:h-60 object-cover rounded-xl mb-3 border-2 border-yellow-200 shadow-md">
+                    <h3 class="text-2xl font-bold text-yellow-900 text-center font-fun">Elizabeth I</h3>
                 </div>
-                <div class="bg-yellow-50 p-4 rounded-xl border-4 border-yellow-400 shadow-lg flex flex-col items-center hover:scale-105 transition-transform duration-300">
-                    <img src="WhatsApp Image 2026-10-03 at 18.11.37.jpeg" alt="Queen Victoria" class="w-full h-40 object-cover rounded-lg mb-3 border-2 border-yellow-200 shadow-md">
-                    <h3 class="text-xl font-bold text-yellow-900 text-center font-fun">Queen Victoria</h3>
+
+                <!-- 6. Queen Victoria -->
+                <div class="bg-white p-4 rounded-2xl border-4 border-yellow-400 shadow-xl flex flex-col items-center hover:scale-105 transition-transform duration-300">
+                    <img src="WhatsApp Image 2026-10-03 at 18.11.37.jpeg" alt="Queen Victoria" class="w-full h-52 md:h-60 object-cover rounded-xl mb-3 border-2 border-yellow-200 shadow-md">
+                    <h3 class="text-2xl font-bold text-yellow-900 text-center font-fun">Queen Victoria</h3>
                 </div>
-                <div class="bg-yellow-50 p-4 rounded-xl border-4 border-yellow-400 shadow-lg flex flex-col items-center hover:scale-105 transition-transform duration-300">
-                    <img src="WhatsApp Image 2026-10-03 at 18.12.06.jpeg" alt="Elizabeth II" class="w-full h-40 object-cover rounded-lg mb-3 border-2 border-yellow-200 shadow-md">
-                    <h3 class="text-xl font-bold text-yellow-900 text-center font-fun">Elizabeth II</h3>
+
+                <!-- 7. Elizabeth II -->
+                <div class="bg-white p-4 rounded-2xl border-4 border-yellow-400 shadow-xl flex flex-col items-center hover:scale-105 transition-transform duration-300">
+                    <img src="WhatsApp Image 2026-10-03 at 18.12.06.jpeg" alt="Elizabeth II" class="w-full h-52 md:h-60 object-cover rounded-xl mb-3 border-2 border-yellow-200 shadow-md">
+                    <h3 class="text-2xl font-bold text-yellow-900 text-center font-fun">Elizabeth II</h3>
                 </div>
-                <div class="bg-yellow-50 p-4 rounded-xl border-4 border-yellow-400 shadow-lg flex flex-col items-center hover:scale-105 transition-transform duration-300">
-                    <img src="WhatsApp Image 2026-10-03 at 18.12.52.jpeg" alt="King Charles III" class="w-full h-40 object-cover rounded-lg mb-3 border-2 border-yellow-200 shadow-md">
-                    <h3 class="text-xl font-bold text-yellow-900 text-center font-fun">King Charles III</h3>
+
+                <!-- 8. King Charles III -->
+                <div class="bg-white p-4 rounded-2xl border-4 border-yellow-400 shadow-xl flex flex-col items-center hover:scale-105 transition-transform duration-300">
+                    <img src="WhatsApp Image 2026-10-03 at 18.12.52.jpeg" alt="King Charles III" class="w-full h-52 md:h-60 object-cover rounded-xl mb-3 border-2 border-yellow-200 shadow-md">
+                    <h3 class="text-2xl font-bold text-yellow-900 text-center font-fun">King Charles III</h3>
                 </div>
+
             </div>
         </div>
 
@@ -268,37 +306,31 @@
             
             <div class="flex flex-wrap justify-center gap-6 max-w-6xl px-4 pb-12">
                 
-                <!-- Big Ben -->
                 <div class="bg-white p-3 rounded-2xl shadow-xl border-4 border-blue-300 transform rotate-[-2deg] hover:rotate-0 hover:scale-110 hover:z-10 transition duration-300 w-64 md:w-72">
                     <img src="Gemini_Generated_Image_ybue6sybue6sybue.jpg" alt="Big Ben" class="w-full h-48 object-cover rounded-xl border-2 border-dashed border-blue-200 mb-2">
                     <h3 class="text-xl font-bold text-blue-900 text-center font-fun">Big Ben</h3>
                 </div>
                 
-                <!-- Tower Bridge -->
                 <div class="bg-white p-3 rounded-2xl shadow-xl border-4 border-red-300 transform rotate-[3deg] hover:rotate-0 hover:scale-110 hover:z-10 transition duration-300 w-64 md:w-72">
                     <img src="Gemini_Generated_Image_4176ji4176ji4176.jpg" alt="Tower Bridge" class="w-full h-48 object-cover rounded-xl border-2 border-dashed border-red-200 mb-2">
                     <h3 class="text-xl font-bold text-red-900 text-center font-fun">Tower Bridge</h3>
                 </div>
                 
-                <!-- Buckingham & London Eye -->
                 <div class="bg-white p-3 rounded-2xl shadow-xl border-4 border-yellow-300 transform rotate-[-1deg] hover:rotate-0 hover:scale-110 hover:z-10 transition duration-300 w-64 md:w-72">
                     <img src="Gemini_Generated_Image_d54i4bd54i4bd54i.jpg" alt="London Eye y Palacio" class="w-full h-48 object-cover rounded-xl border-2 border-dashed border-yellow-200 mb-2">
                     <h3 class="text-xl font-bold text-yellow-900 text-center font-fun">London Eye & Palace</h3>
                 </div>
                 
-                <!-- Tower of London -->
                 <div class="bg-white p-3 rounded-2xl shadow-xl border-4 border-green-300 transform rotate-[2deg] hover:rotate-0 hover:scale-110 hover:z-10 transition duration-300 w-64 md:w-72">
                     <img src="Gemini_Generated_Image_klqq5xklqq5xklqq.jpg" alt="Tower of London" class="w-full h-48 object-cover rounded-xl border-2 border-dashed border-green-200 mb-2">
                     <h3 class="text-xl font-bold text-green-900 text-center font-fun">Tower of London</h3>
                 </div>
                 
-                <!-- British Museum -->
                 <div class="bg-white p-3 rounded-2xl shadow-xl border-4 border-purple-300 transform rotate-[-3deg] hover:rotate-0 hover:scale-110 hover:z-10 transition duration-300 w-64 md:w-72">
                     <img src="Gemini_Generated_Image_ck23acck23acck23.jpg" alt="British Museum" class="w-full h-48 object-cover rounded-xl border-2 border-dashed border-purple-200 mb-2">
                     <h3 class="text-xl font-bold text-purple-900 text-center font-fun">British Museum</h3>
                 </div>
 
-                <!-- Westminster Abbey -->
                 <div class="bg-white p-3 rounded-2xl shadow-xl border-4 border-orange-300 transform rotate-[4deg] hover:rotate-0 hover:scale-110 hover:z-10 transition duration-300 w-64 md:w-72">
                     <img src="Gemini_Generated_Image_2zjg962zjg962zjg.jpg" alt="Abadía de Westminster" class="w-full h-48 object-cover rounded-xl border-2 border-dashed border-orange-200 mb-2">
                     <h3 class="text-xl font-bold text-orange-900 text-center font-fun">Westminster Abbey</h3>
@@ -332,8 +364,19 @@
         const btnPrev = document.getElementById('btn-prev');
         const btnNext = document.getElementById('btn-next');
 
+        // Datos para el zoom secuencial de la comida (Diapositiva 1)
+        const foodSteps = [
+            { img: "WhatsApp Image 2026-10-03 at 18.02.03.jpeg", title: "Fish and Chips" },
+            { img: "WhatsApp Image 2026-10-03 at 18.02.02 (5).jpeg", title: "Cooked Breakfast" },
+            { img: "WhatsApp Image 2026-10-03 at 18.02.02 (2).jpeg", title: "Haggis" }
+        ];
+
+        const popupOverlay = document.getElementById('food-popup-overlay');
+        const popupImg = document.getElementById('popup-img');
+        const popupTitle = document.getElementById('popup-title');
+        const popupContent = document.getElementById('food-popup-content');
+
         function updateUI() {
-            // Actualizar botones
             if (currentSlide === 0 && currentStep === 0) {
                 btnPrev.classList.add('opacity-50', 'cursor-not-allowed');
                 btnPrev.classList.remove('hover:bg-blue-50', 'hover:scale-110');
@@ -364,23 +407,39 @@
                     slide.classList.remove('active');
                 }
             });
+            popupOverlay.classList.remove('active');
             updateUI();
+        }
+
+        function handleFoodZoom(step) {
+            if (currentSlide === 1 && step >= 1 && step <= 3) {
+                const foodData = foodSteps[step - 1];
+                popupContent.style.transform = "scale(0.8)";
+                setTimeout(() => {
+                    popupImg.src = foodData.img;
+                    popupTitle.textContent = foodData.title;
+                    popupOverlay.classList.add('active');
+                    popupContent.style.transform = "scale(1)";
+                }, 150);
+            } else {
+                popupOverlay.classList.remove('active');
+            }
         }
 
         function activateStep(slideIdx, stepIdx, animate = true) {
             const slide = document.getElementById(`slide-${slideIdx}`);
             if(!slide) return;
+
+            if (slideIdx === 1) {
+                handleFoodZoom(stepIdx);
+                return;
+            }
+
             const targets = slide.querySelectorAll(`.step-${stepIdx}`);
-            
             targets.forEach(el => {
-                if (el.dataset.add) {
-                    el.classList.add(...el.dataset.add.split(' '));
-                }
-                if (el.dataset.remove) {
-                    el.classList.remove(...el.dataset.remove.split(' '));
-                }
+                if (el.dataset.add) el.classList.add(...el.dataset.add.split(' '));
+                if (el.dataset.remove) el.classList.remove(...el.dataset.remove.split(' '));
                 
-                // Si no queremos animación al restaurar estados previos (cuando vamos hacia atrás de diapositiva)
                 if (!animate) {
                     el.style.transition = 'none';
                     setTimeout(() => el.style.transition = '', 50);
@@ -391,15 +450,16 @@
         function deactivateStep(slideIdx, stepIdx) {
             const slide = document.getElementById(`slide-${slideIdx}`);
             if(!slide) return;
+
+            if (slideIdx === 1) {
+                handleFoodZoom(stepIdx - 1);
+                return;
+            }
+
             const targets = slide.querySelectorAll(`.step-${stepIdx}`);
-            
             targets.forEach(el => {
-                if (el.dataset.add) {
-                    el.classList.remove(...el.dataset.add.split(' '));
-                }
-                if (el.dataset.remove) {
-                    el.classList.add(...el.dataset.remove.split(' '));
-                }
+                if (el.dataset.add) el.classList.remove(...el.dataset.add.split(' '));
+                if (el.dataset.remove) el.classList.add(...el.dataset.remove.split(' '));
             });
         }
 
@@ -431,9 +491,12 @@
                     const prevSlide = document.getElementById(`slide-${currentSlide}`);
                     currentStep = parseInt(prevSlide.dataset.maxSteps || 0);
                     
-                    // Restaurar los pasos de la diapositiva anterior al instante
-                    for(let i = 1; i <= currentStep; i++) {
-                        activateStep(currentSlide, i, false);
+                    if (currentSlide === 1) {
+                        handleFoodZoom(currentStep);
+                    } else {
+                        for(let i = 1; i <= currentStep; i++) {
+                            activateStep(currentSlide, i, false);
+                        }
                     }
                     
                     showSlide(currentSlide);
